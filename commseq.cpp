@@ -13,10 +13,11 @@
 
 using namespace std;
 
-
+// Void function to implement looking back at table to find longest common subsequence
 void commSeq(const vector< vector<int> >& lcs_matrix, const string x_seq, const string y_seq, size_t i, size_t j, vector<char>& result) {
   result.clear();
 
+  // If length of strings are zero -> no lcs
   if (i == 0 || j == 0)
     return;
   else if (x_seq[i] == y_seq[j]) {
@@ -60,13 +61,12 @@ int main(int argc, char* argv[]) {
   // Make a 2D vector of ints to compute the lcs
   vector< vector<int> > lcs_matrix(x_size, vector<int>(y_size));
 
-  // Initialize first roms with zero
+  // Initialize first row and column with zero
   for (size_t i = 0; i != x_size; i++) {
     lcs_matrix[i][0] = 0;
   }
-  for (size_t j = 0; j != y_size; j++) {
-    lcs_matrix[0][j] = 0;
-  }
+  vector<int> row(y_size, 0);
+  lcs_matrix.push_back(row);
 
   // Populate rows withs LCS values
   for (size_t m = 1; m != x_size; m++) {
@@ -85,7 +85,7 @@ int main(int argc, char* argv[]) {
   commSeq(lcs_matrix, x_seq, y_seq, x_size, y_size, result);
 
   // Print out
-  for (auto& x : result)
+  for (const auto& x : result)
     cout << x;
 
   return 0;
