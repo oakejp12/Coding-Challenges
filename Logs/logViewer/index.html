@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html ng-app="logPars">
+<head lang="en">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="css/stylesheet.css">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine">
+    <title>Log Viewer</title>
+</head>
+
+<body>
+<h1 id="title">Log Parsing Tool</h1>
+
+
+<br/>
+
+<h3>List of supported log files under Help</h3>
+<br/>
+
+<div ng-controller="logFileCTRL" class="container" id="contentArea">
+
+    <div>
+        Select one of the links to a log file.
+        <ol>
+            <li><a name="Logs" href="javascript:ajax('#')">Logs.txt</a>
+            </li>
+        </ol>
+    </div>
+
+    <h5>Or</h5>
+
+    <!-- TODO: See if I could do multiple files at once! -->
+    Upload a Log File:
+    <input type="file" on-read-file="showContent($content)"/>
+
+    <br/><br/>
+
+    <h3>Displaying recent errors:</h3>
+
+    <!-- Output the log info -->
+    <p id="writeHere"></p>
+
+    <br/>
+
+    <!--Displays and Hides the Log file that was uploaded-->
+    <input type="checkbox" name="c1" onclick="showMe('div1')"/><strong id="hidefile">Show/Hide Log File</strong>
+
+    <div id="div1" style="display:none">
+        <pre id="showLog">{{ content }}</pre>
+
+        <!-- Script Option to Hide/View log file -->
+        <script>
+            function showMe(box) {
+                var chboxs = document.getElementsByName("c1");
+                var vis = "none";
+                for (var i = 0; i < chboxs.length; i++) {
+                    if (chboxs[i].checked) {
+                        vis = "block";
+                        break;
+                    }
+                }
+                document.getElementById(box).style.display = vis;
+            }
+        </script>
+    </div>
+
+    <br/><br/>
+
+
+    <br/><br/>
+</div>
+</body>
+ <!-- AngularJS Google CDN -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
+<!--jQuery-->
+<script type="text/javascript" src="jQuery/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="angularFile.js"></script>
+<script type="text/javascript" src="ajaxFile.js"></script>
+</html>
