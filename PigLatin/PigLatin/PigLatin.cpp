@@ -65,6 +65,7 @@ string PigLatin(string const& word) {
 			else plword.erase(i - 1, 1);
 
 			plword.insert(plword.size() - loc + 1, 1, temp);
+			break;
 		}
 	}
 
@@ -92,7 +93,7 @@ int main(int argc, char** argv) {
 		cout << PigLatin(word) << " ";
 	}
 	
-	cin.get(); // Used to make VS2015 wait
+	//cin.get(); // Used to make VS2015 wait
 
 	return 0;
 }
