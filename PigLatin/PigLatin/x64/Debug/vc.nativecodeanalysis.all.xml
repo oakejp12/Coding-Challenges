@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?><DEFECTS><DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\oakejp12\documents\personaltestdev\c++\piglatin\piglatin\</FILEPATH>
+      <FILENAME>piglatin.cpp</FILENAME>
+      <LINE>47</LINE>
+      <COLUMN>14</COLUMN>
+    </SFA>
+    <DEFECTCODE>6330</DEFECTCODE>
+    <DESCRIPTION>'const char' passed as _Param_(1) when 'unsigned char' is required in call to 'isupper'.</DESCRIPTION>
+    <FUNCTION>PigLatin</FUNCTION>
+    <DECORATED>?PigLatin@@YA?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AEBV12@@Z</DECORATED>
+    <FUNCLINE>17</FUNCLINE>
+    <PATH />
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\oakejp12\documents\personaltestdev\c++\piglatin\piglatin\</FILEPATH>
+      <FILENAME>piglatin.cpp</FILENAME>
+      <LINE>59</LINE>
+      <COLUMN>13</COLUMN>
+    </SFA>
+    <DEFECTCODE>6330</DEFECTCODE>
+    <DESCRIPTION>'const char' passed as _Param_(1) when 'unsigned char' is required in call to 'ispunct'.</DESCRIPTION>
+    <FUNCTION>PigLatin</FUNCTION>
+    <DECORATED>?PigLatin@@YA?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AEBV12@@Z</DECORATED>
+    <FUNCLINE>17</FUNCLINE>
+    <PATH />
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\oakejp12\documents\personaltestdev\c++\piglatin\piglatin\</FILEPATH>
+      <FILENAME>piglatin.cpp</FILENAME>
+      <LINE>73</LINE>
+      <COLUMN>12</COLUMN>
+    </SFA>
+    <DEFECTCODE>6330</DEFECTCODE>
+    <DESCRIPTION>'char' passed as _Param_(1) when 'unsigned char' is required in call to 'isupper'.</DESCRIPTION>
+    <FUNCTION>PigLatin</FUNCTION>
+    <DECORATED>?PigLatin@@YA?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AEBV12@@Z</DECORATED>
+    <FUNCLINE>17</FUNCLINE>
+    <PATH />
+  </DEFECT></DEFECTS>
