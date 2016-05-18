@@ -1,2 +1,3 @@
-# EA_Challenges
-Implementation of EA Challenges
+# EA Challenges
+
+Implementation of several EA Challenges from [https://github.com/binarypie/problems]('Binarypie Problems')
