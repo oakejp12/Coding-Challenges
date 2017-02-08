@@ -4,8 +4,6 @@
 #include <regex>
 #include <vector>
 
-using namespace std;
-
 enum string_value
 {
 	OS,
@@ -16,9 +14,9 @@ enum string_value
 	FILEREQ
 };
 
-string_value hashit(string const& request)
+string_value hashit(std::string const& request)
 {
-	if (request == "OS" || request == "OS") return OS;
+	if (request == "OS" || request == "os") return OS;
 	if (request == "BROWSER" || request == "browser") return BROWSER;
 	if (request == "IP" || request == "ip") return IP;
 	if (request == "DATE_TIME" || request == "date_time") return DATE_TIME;
@@ -26,31 +24,30 @@ string_value hashit(string const& request)
 	if (request == "FILEREQ" || request == "filereq") return FILEREQ;
 }
 
-void publish(vector<string> const& logs, regex const& regx)
+void publish(std::vector<std::string> const& logs, std::regex const& regx)
 {
 	// Regex matching object on string literals
-	std::smatch m;
+	std::smatch matchingObj;
 
 	// Output results to file
-	ofstream output;
+	std::ofstream output;
 	output.open("Results.txt");
 
 	try {
-		for (size_t i = 0; i < logs.size(); ++i) {
-			string test = logs[i];
-			while (regex_search(test, m, regx))
-			{
-				for (const auto& x : m)
-				{
-					output << x << " ";
+		// TODO: Any way to destruct this away from three loops
+		for (auto test : logs) {
+			while (std::regex_search(test, matchingObj, regx)) {
+				for (const auto& elem : matchingObj) {
+					output << elem << " ";
 					break;
 				}
-				output << endl;
-				test = m.suffix().str();
+				output << '\n';
+				test = matchingObj.suffix().str();
 			}
 		}
-	} catch (regex_error& err) {
-		// Syntax error in the regular expression
+
+	} catch (std::regex_error& err) {
+		// Error in the regular expression
 		output << err.what() << '\n';
 	}
 
@@ -60,22 +57,21 @@ void publish(vector<string> const& logs, regex const& regx)
 int main(int argc, char** argv) {
 	
 	if (argc != 2) {
-		cout << "Incorrect number of arguments" << '\n';
+		std::cout << "Incorrect number of arguments" << '\n';
 		return EXIT_FAILURE;
 	}
 
 	// Shared variables
-	ifstream infile(argv[1]);
-	vector<string> logs;
+	std::ifstream infile(argv[1]);
+	std::vector<std::string> logs;
 
 	// Read log file and push logs to vector of strings
 	if (!infile.is_open()) {
-		cout << "System could not open file!" << '\n';
+		std::cout << "System could not open file!\n";
 		return EXIT_FAILURE;
-	}
-	else {
+	} else {
 		// Input log lines
-		string temp;
+		std::string temp;
 		while (getline(infile, temp)) {
 			logs.push_back(temp);
 		}
@@ -85,51 +81,49 @@ int main(int argc, char** argv) {
 	infile.close();
 
 	// Get input from the user
-	cout << "Enter search term: OS, BROWSER, IP, DATE_TIME, REFERRER, FILEREQ" << '\n';
-	string choice;
-	cin >> choice;
+	std::cout << "Enter search term: OS, BROWSER, IP, DATE_TIME, REFERRER, FILEREQ\n";
+	std::string choice;
+	std::cin >> choice;
 
-	cout << "Writing to Results.txt" << '\n';
+	std::cout << "Writing to Results.txt\n";
 
 	// Develop regex patterns for searching the log file
 	// OS, Browser, IP, Date and Time, File Requested, Referrer
-	switch (hashit(choice))
-	{
+	switch (hashit(choice)) {
 	case OS: {
-		const regex SYS(R"(\([a-zA-Z]+(?:.*)\))");
+		const std::regex SYS(R"(\([a-zA-Z]+(?:.*)\))");
 		publish(logs, SYS);
 		break;
 	}
 	case BROWSER: {
-		const regex BROWS(R"([^\"]\w+\/[0-9].[0-9](?:\s))");
+		const std::regex BROWS(R"([^\"]\w+\/[0-9].[0-9](?:\s))");
 		publish(logs, BROWS);
 		break;
 	}
 	case IP: {
-		const regex IP(R"(^(?:[0-9]{1,3}\.){3}[0-9]{1,3})");
+		const std::regex IP(R"(^(?:[0-9]{1,3}\.){3}[0-9]{1,3})");
 		publish(logs, IP);
 		break;
 	}
 	case DATE_TIME: {
-		const regex DATE(R"(\[[0-9]{2}\/[a-zA-Z]{3,}\/[0-9]{4}(?:\:[0-9]{2}){3}\s\+[0-9]{4}\])");
+		const std::regex DATE(R"(\[[0-9]{2}\/[a-zA-Z]{3,}\/[0-9]{4}(?:\:[0-9]{2}){3}\s\+[0-9]{4}\])");
 		publish(logs, DATE);
 		break;
 	}
 	case REFERRER: {
-		const regex REF(R"((?:\")[a-z]{4,5}\:\/\/(?:.+?).[a-z]+(?:\"))");
+		const std::regex REF(R"((?:\")[a-z]{4,5}\:\/\/(?:.+?).[a-z]+(?:\"))");
 		publish(logs, REF);
 		break;
 	}
 	case FILEREQ: {
-		const regex FREQ(R"((?:\s\/)[a-zA-Z0-9]+\.[a-z]+)");
+		const std::regex FREQ(R"((?:\s\/)[a-zA-Z0-9]+\.[a-z]+)");
 		publish(logs, FREQ);
 		break;
 	}
 	default:
-		cout << "Entered in wrong command!" << '\n';
+		std::cout << "Entered in wrong command!" << '\n';
 		return EXIT_FAILURE;
 	}
-	
 
-	return EXIT_SUCCESS;
+	return 0;
 }
