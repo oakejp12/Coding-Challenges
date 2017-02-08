@@ -1,3 +1,4 @@
 deployment-config.json
 *.txt
 *.exe
+*.vs
